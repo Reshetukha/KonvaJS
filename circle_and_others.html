@@ -1,0 +1,167 @@
+<html>
+<head>
+  <script src="konva.min.js"></script>
+  <meta charset="utf-8">
+  <title>Konva Circle</title>
+  <style>
+    body {
+      /*margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #F0F0F0;*/
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+  <script>
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+    
+    var stage = new Konva.Stage({
+      container: 'container',
+      width: width,
+      height: height
+    });
+    var layer = new Konva.Layer();
+    var circle = new Konva.Circle({
+      x: stage.getWidth() / 2,
+      y: stage.getHeight() / 2,
+      radius: 100,
+      fill: 'red',
+      stroke: 'black',
+      strokeWidth: 4
+    });
+    // add the shape to the layer
+    layer.add(circle);
+    // add the layer to the stage
+    stage.add(layer);
+  </script>
+  
+  <div id="container2"></div>
+  <script>
+    var stage2 = new Konva.Stage({
+        container: 'container2',
+        width: 300,
+        height: 300
+    });
+    var layer2 = new Konva.Layer();
+    var triangle = new Konva.Shape({
+      sceneFunc: function(context) {
+        context.beginPath();
+        context.moveTo(20, 50);
+        context.lineTo(220, 80);
+        context.quadraticCurveTo(150, 100, 260, 170);
+        context.lineTo(140, 150);
+        context.closePath();
+        // Konva specific method
+        context.fillStrokeShape(this);
+      },
+      fill: '#00D2FF',
+      stroke: 'black',
+      strokeWidth: 4
+    });
+    layer2.add(triangle);
+    stage2.add(layer2);
+  </script>
+  
+  <div id="container3"></div>
+  <script>
+    var stage3 = new Konva.Stage({
+        container: 'container3',
+        width: width,
+        height: 350
+    });
+    var layer3 = new Konva.Layer();
+    var pentagon = new Konva.RegularPolygon({
+        x: stage3.getWidth() / 2,
+        y: stage3.getHeight() / 2,
+        sides: 5,
+        radius: 70,
+        fill: 'red',
+        stroke: 'black',
+        strokeWidth: 4,
+        shadowOffsetX : 20,
+        shadowOffsetY : 25,
+        shadowBlur : 40,
+        opacity : 0.5
+    });
+    layer3.add(pentagon);
+    stage3.add(layer3);
+  </script>
+  
+  <div id="container4"></div>
+  <script>
+    function writeMessage(message) {
+      text.setText(message);
+      layer.draw();
+    }
+    var stage4 = new Konva.Stage({
+      container: 'container4',
+      width: 300,
+      height: 300
+    });
+    var layer4 = new Konva.Layer();
+    var triangle4 = new Konva.RegularPolygon({
+      x: 80,
+      y: 120,
+      sides: 3,
+      radius: 80,
+      fill: '#00D2FF',
+      stroke: 'black',
+      strokeWidth: 4
+    });
+    var text = new Konva.Text({
+      x: 10,
+      y: 10,
+      fontFamily: 'Calibri',
+      fontSize: 24,
+      text: '',
+      fill: 'black'
+    });
+    triangle4.on('mouseout', function() {
+      writeMessage('Mouseout triangle');
+    });
+    triangle4.on('mousemove', function() {
+      var mousePos = stage4.getPointerPosition();
+      /*
+      var x = mousePos.x - 190;
+      var y = mousePos.y - 40;
+      */
+      var x = mousePos.x;
+      var y = mousePos.y;
+      console.log('x: ' + x + ', y: ' + y);
+      writeMessage('x: ' + x + ', y: ' + y);
+    });
+    var circle4 = new Konva.Circle({
+      x: 230,
+      y: 100,
+      radius: 60,
+      fill: 'red',
+      stroke: 'black',
+      strokeWidth: 4
+    });
+    circle4.on('mouseover', function() {
+      writeMessage('Mouseover circle');
+      console.log('Mouseover circle');
+    });
+    circle4.on('mouseout', function() {
+      writeMessage('Mouseout circle');
+      console.log('Mouseout circle');
+    });
+    circle4.on('mousedown', function() {
+      writeMessage('Mousedown circle');
+      console.log('Mousedown circle');
+    });
+    circle4.on('mouseup', function() {
+      writeMessage('Mouseup circle');
+      console.log('Mouseup circle');
+    });
+    layer4.add(triangle4);
+    layer4.add(circle4);
+    layer4.add(text);
+    // add the layer to the stage
+    stage4.add(layer4);
+  </script>
+</body>
+</html>
